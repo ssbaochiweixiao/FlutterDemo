@@ -1,0 +1,82 @@
+Flutter crash report.
+Please report a bug at https://github.com/flutter/flutter/issues.
+
+## command
+
+flutter run
+
+## exception
+
+_TypeError: Null check operator used on a null value
+
+```
+#0      currentPackageConfig (package:flutter_tools/src/dart/package_map.dart:16:56)
+#1      _loadDwdsDirectory (package:flutter_tools/src/isolated/devfs_web.dart:1234:45)
+#2      WebAssetServer.start (package:flutter_tools/src/isolated/devfs_web.dart:270:15)
+<asynchronous suspension>
+#3      WebDevFS.create (package:flutter_tools/src/isolated/devfs_web.dart:860:22)
+<asynchronous suspension>
+#4      ResidentWebRunner.run.<anonymous closure> (package:flutter_tools/src/isolated/resident_web_runner.dart:328:19)
+<asynchronous suspension>
+#5      asyncGuard.<anonymous closure> (package:flutter_tools/src/base/async_guard.dart:111:24)
+<asynchronous suspension>
+```
+
+## flutter doctor
+
+```
+[32m[✓][39m Flutter (Channel stable, 3.24.5, on macOS 14.1.1 23B81 darwin-arm64
+    (Rosetta), locale zh-Hans-CN)
+    [32m•[39m Flutter version 3.24.5 on channel stable at
+      /Users/yuxueer/Desktop/Flutter-development/flutter
+    [32m•[39m Upstream repository https://github.com/flutter/flutter.git
+    [32m•[39m Framework revision dec2ee5c1f (6 天前), 2024-11-13 11:13:06 -0800
+    [32m•[39m Engine revision a18df97ca5
+    [32m•[39m Dart version 3.5.4
+    [32m•[39m DevTools version 2.37.3
+    [32m•[39m Pub download mirror https://pub.flutter-io.cn
+    [32m•[39m Flutter download mirror https://storage.flutter-io.cn
+
+[32m[✓][39m Android toolchain - develop for Android devices (Android SDK version 34.0.0)
+    [32m•[39m Android SDK at /Users/yuxueer/Library/Android/sdk
+    [32m•[39m Platform android-34, build-tools 34.0.0
+    [32m•[39m Java binary at: /Applications/Android
+      Studio.app/Contents/jbr/Contents/Home/bin/java
+    [32m•[39m Java version OpenJDK Runtime Environment (build 21.0.3+-79915917-b509.11)
+    [32m•[39m All Android licenses accepted.
+
+[32m[✓][39m Xcode - develop for iOS and macOS (Xcode 15.2)
+    [32m•[39m Xcode at /Applications/Xcode.app/Contents/Developer
+    [32m•[39m Build 15C500b
+    [32m•[39m CocoaPods version 1.15.2
+
+[32m[✓][39m Chrome - develop for the web
+    [32m•[39m Chrome at /Applications/Google Chrome.app/Contents/MacOS/Google Chrome
+
+[32m[✓][39m Android Studio (version 2024.2)
+    [32m•[39m Android Studio at /Applications/Android Studio.app/Contents
+    [32m•[39m Flutter plugin can be installed from:
+      🔨 https://plugins.jetbrains.com/plugin/9212-flutter
+    [32m•[39m Dart plugin can be installed from:
+      🔨 https://plugins.jetbrains.com/plugin/6351-dart
+    [32m•[39m Java version OpenJDK Runtime Environment (build 21.0.3+-79915917-b509.11)
+
+[32m[✓][39m VS Code (version 1.95.3)
+    [32m•[39m VS Code at /Applications/Visual Studio Code.app/Contents
+    [32m•[39m Flutter extension version 3.100.0
+
+[32m[✓][39m Connected device (3 available)
+    [32m•[39m macOS (desktop)                 • macos                 • darwin-arm64   •
+      macOS 14.1.1 23B81 darwin-arm64 (Rosetta)
+    [32m•[39m Mac Designed for iPad (desktop) • mac-designed-for-ipad • darwin         •
+      macOS 14.1.1 23B81 darwin-arm64 (Rosetta)
+    [32m•[39m Chrome (web)                    • chrome                • web-javascript •
+      Google Chrome 131.0.6778.70
+    [33m![39m Error: Browsing on the local area network for 李珊珊的Apple Watch. Ensure the
+      device is unlocked and discoverable via Bluetooth. (code -27)
+
+[32m[✓][39m Network resources
+    [32m•[39m All expected network resources are available.
+
+[32m•[39m No issues found!
+```
