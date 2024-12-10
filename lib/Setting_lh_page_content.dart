@@ -151,7 +151,7 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
         itemBuilder: (context, groupIndex) {
           // 订阅banner
           if (groupIndex == 0 && _isPremiumSectionVisible) {
-            // 未订阅
+            // 未订阅e
             return Visibility(
               visible: _isPremiumSectionVisible,
               child: Column(
