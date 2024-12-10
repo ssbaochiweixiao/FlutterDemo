@@ -1,7 +1,9 @@
 # This is a generated file; do not edit or check into version control.
-objectbox_flutter_libs=/Users/yuxueer/.pub-cache/hosted/pub.flutter-io.cn/objectbox_flutter_libs-4.0.3/
 path_provider=/Users/yuxueer/.pub-cache/hosted/pub.flutter-io.cn/path_provider-2.1.5/
 path_provider_android=/Users/yuxueer/.pub-cache/hosted/pub.flutter-io.cn/path_provider_android-2.2.14/
-path_provider_foundation=/Users/yuxueer/.pub-cache/hosted/pub.flutter-io.cn/path_provider_foundation-2.4.0/
+path_provider_foundation=/Users/yuxueer/.pub-cache/hosted/pub.flutter-io.cn/path_provider_foundation-2.4.1/
 path_provider_linux=/Users/yuxueer/.pub-cache/hosted/pub.flutter-io.cn/path_provider_linux-2.2.1/
 path_provider_windows=/Users/yuxueer/.pub-cache/hosted/pub.flutter-io.cn/path_provider_windows-2.3.0/
+sqflite=/Users/yuxueer/.pub-cache/hosted/pub.flutter-io.cn/sqflite-2.4.1/
+sqflite_android=/Users/yuxueer/.pub-cache/hosted/pub.flutter-io.cn/sqflite_android-2.4.0/
+sqflite_darwin=/Users/yuxueer/.pub-cache/hosted/pub.flutter-io.cn/sqflite_darwin-2.4.1/

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:day01/home_page_content.dart';
 import 'package:day01/setting_page_content.dart';
 import 'package:day01/Setting_lh_page_content.dart';
-
+import 'package:day01/test_home_content.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,14 +15,22 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "my simple layout",
       theme: ThemeData(
+
         appBarTheme: AppBarTheme(
-            color: Colors.red,
-            centerTitle: false
+            // color: Colors.white,
+            centerTitle: false,
+          titleTextStyle: TextStyle(
+            color: Colors.black, // 设置AppBar标题文字颜色，这里示例为白色
+            fontSize: 24, // 设置AppBar标题文字大小
+              // Theme.of(context).textTheme.headlineMedium,
+          ),
+
+          // titleTextStyle: Theme.of(context).textTheme.headlineMedium, // 引用TextTheme里的headline6样式
+          // actionsIconTheme: IconThemeData(
+          //   color: Colors.white,
+          // ),
         ),
-
-        primarySwatch: Colors.blue,
       ),
-
       home: MyHomePage(),
     );
   }
@@ -36,9 +44,10 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _currentIndex = 0;
   final List<Widget> _pages = [
+    SettingsPage(),
     HomePageContent(),
-    SettingPageContent(),
     SettingsLHPage(),
+    SettingPageContent(),
   ];
 
   void _onItemTapped(int index) {
@@ -72,6 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
             icon: Icon(Icons.settings),
             label: "settings lh",
           ),
+
         ],
       ),
     );
