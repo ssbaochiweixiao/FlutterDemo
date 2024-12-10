@@ -148,149 +148,215 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
       backgroundColor: Color(0xFFF7F9FA), // 设置整个页面的背景颜色为#F7F9FA
       body: ListView.builder(
 
-        itemCount: groups.length + 1, // 增加一项用于展示Premium Plan区域
+        itemCount: _isPremiumSectionVisible == true ? groupsDefault.length + 1 : groups.length, // 增加一项用于展示Premium Plan区域
+
         itemBuilder: (context, groupIndex) {
-          if (groupIndex == 0) {
-            return Visibility(
-              visible: _isPremiumSectionVisible,
-              child: Column(
+          if (groupIndex == 0 && _isPremiumSectionVisible) { // 未订阅
+              return Visibility(
+                visible: _isPremiumSectionVisible,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: 54,
+                      padding: EdgeInsets.fromLTRB(16, 0, 0, 8),
+                      alignment: Alignment.bottomLeft,
+                      child: Text(
+                        "Premium",
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Color(0xFF737373),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(16, 0, 16, 0),
+                      padding: EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Colors.green.shade100,
+                        borderRadius: BorderRadius.circular(12),
+                        // TODO
+                        image: DecorationImage(
+                          image:
+                          AssetImage('assets/images/img_set_card_bg@2x.png'), // 替换为你实际的图片路径
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Premiums Plan',
+                                style: TextStyle(
+                                  color: Color(0xFF135142),
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                'Unlock and Become a Premium Member',
+                                style: TextStyle(
+                                  color: Color(0xFF135142),
+                                  fontSize: 12,
+                                ),
+                              ),
+                              SizedBox(height: 15),
+
+                              SizedBox(
+                                height: 32,
+                                child: ElevatedButton(
+                                  onPressed: () {},
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(16),
+                                    ),
+                                  ),
+                                  child: Text('Get Now!'),
+                                ),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 4),
+                  ],
+                ),
+              );
+            // 在这里添加Premium Plan Section相关代码
+          } else {
+            if (_isPremiumSectionVisible) {
+              return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // 显示组名，设置高度为56，文本居左下，底部内边距为8
                   Container(
                     height: 54,
                     padding: EdgeInsets.fromLTRB(16, 0, 0, 8),
                     alignment: Alignment.bottomLeft,
                     child: Text(
-                      "Premium",
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Color(0xFF737373),
+                      groupsDefault[groupIndex - 1]["groupName"],
+                      style:
+                      TextStyle(fontSize: 14, color: Color(0xFF737373),
                       ),
                     ),
                   ),
-                  Container(
-                    margin: EdgeInsets.fromLTRB(16, 0, 16, 0),
-                    padding: EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: Colors.green.shade100,
-                      borderRadius: BorderRadius.circular(12),
-                      // TODO
-                      image: DecorationImage(
-                        image:
-                        AssetImage('assets/images/img_set_card_bg@2x.png'), // 替换为你实际的图片路径
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Premiums Plan',
-                              style: TextStyle(
-                                color: Color(0xFF135142),
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
+                  // 遍历组内选项并构建ListTile展示
+                  if (groupsDefault[groupIndex - 1]["options"].length > 1)
+                    ListView.separated(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: groupsDefault[groupIndex - 1]["options"].length,
+                      itemBuilder: (context, optionIndex) {
+                        bool isFirst = optionIndex == 0;
+                        bool isLast = optionIndex ==
+                            groupsDefault[groupIndex - 1]["options"].length - 1;
+
+                        return Container(
+                          margin: EdgeInsets.symmetric(horizontal: 15),
+                          height: 55,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.vertical(
+                              top: isFirst ? Radius.circular(10) : Radius.zero,
+                              bottom: isLast ? Radius.circular(10) : Radius.zero,
                             ),
-                            Text(
-                              'Unlock and Become a Premium Member',
-                              style: TextStyle(
-                                color: Color(0xFF135142),
-                                fontSize: 12,
-                              ),
-                            ),
-                            SizedBox(height: 15),
-
-                            SizedBox(
-                              height: 32,
-                              child: ElevatedButton(
-                                onPressed: () {},
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                ),
-                                child: Text('Get Now!'),
-                              ),
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 4),
-                ],
-              ),
-            );
-            // 在这里添加Premium Plan Section相关代码
-
-          } else {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // 显示组名，设置高度为56，文本居左下，底部内边距为8
-                Container(
-                  height: 54,
-                  padding: EdgeInsets.fromLTRB(16, 0, 0, 8),
-                  alignment: Alignment.bottomLeft,
-                  child: Text(
-                    groups[groupIndex - 1]["groupName"],
-                    style:
-                    TextStyle(fontSize: 14, color: Color(0xFF737373),
-                    ),
-                  ),
-                ),
-                // 遍历组内选项并构建ListTile展示
-                if (groups[groupIndex - 1]["options"].length > 1)
-                  ListView.separated(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: groups[groupIndex - 1]["options"].length,
-                    itemBuilder: (context, optionIndex) {
-                      bool isFirst = optionIndex == 0;
-                      bool isLast = optionIndex ==
-                          groups[groupIndex - 1]["options"].length - 1;
-
-                      return Container(
+                            child: ListTileCreateUI(context,
+                                groupsDefault[groupIndex - 1]["options"][optionIndex]),
+                          ),
+                        );
+                      },
+                      separatorBuilder: (context, index) =>
+                          Divider(
+                            height: 0,
+                            color: Color(0xFFF5F5F5),
+                            indent: 30,
+                            endIndent: 30,
+                          ),
+                    )
+                  else
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 5),
+                      child: Container(
                         margin: EdgeInsets.symmetric(horizontal: 15),
                         height: 55,
                         child: ClipRRect(
-                          borderRadius: BorderRadius.vertical(
-                            top: isFirst ? Radius.circular(10) : Radius.zero,
-                            bottom: isLast ? Radius.circular(10) : Radius.zero,
-                          ),
-                          child: ListTileCreateUI(context,
-                              groups[groupIndex - 1]["options"][optionIndex]),
+                          borderRadius: BorderRadius.circular(10),
+                          child: ListTileCreateUI(
+                              context, groups[groupIndex - 1]["options"][0]),
                         ),
-                      );
-                    },
-                    separatorBuilder: (context, index) =>
-                        Divider(
-                          height: 0,
-                          color: Color(0xFFF5F5F5),
-                          indent: 30,
-                          endIndent: 30,
-                        ),
-                  )
-                else
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 5),
-                    child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 15),
-                      height: 55,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: ListTileCreateUI(
-                            context, groups[groupIndex - 1]["options"][0]),
+                      ),
+                    ),
+                ],
+              );
+            } else {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // 显示组名，设置高度为56，文本居左下，底部内边距为8
+                  Container(
+                    height: 54,
+                    padding: EdgeInsets.fromLTRB(16, 0, 0, 8),
+                    alignment: Alignment.bottomLeft,
+                    child: Text(
+                      groups[groupIndex]["groupName"],
+                      style:
+                      TextStyle(fontSize: 14, color: Color(0xFF737373),
                       ),
                     ),
                   ),
-              ],
-            );
+                  // 遍历组内选项并构建ListTile展示
+                  if (groups[groupIndex]["options"].length > 1)
+                    ListView.separated(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: groups[groupIndex]["options"].length,
+                      itemBuilder: (context, optionIndex) {
+                        bool isFirst = optionIndex == 0;
+                        bool isLast = optionIndex ==
+                            groups[groupIndex]["options"].length - 1;
+
+                        return Container(
+                          margin: EdgeInsets.symmetric(horizontal: 15),
+                          height: 55,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.vertical(
+                              top: isFirst ? Radius.circular(10) : Radius.zero,
+                              bottom: isLast ? Radius.circular(10) : Radius.zero,
+                            ),
+                            child: ListTileCreateUI(context,
+                                groups[groupIndex]["options"][optionIndex]),
+                          ),
+                        );
+                      },
+                      separatorBuilder: (context, index) =>
+                          Divider(
+                            height: 0,
+                            color: Color(0xFFF5F5F5),
+                            indent: 30,
+                            endIndent: 30,
+                          ),
+                    )
+                  else
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 5),
+                      child: Container(
+                        margin: EdgeInsets.symmetric(horizontal: 15),
+                        height: 55,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: ListTileCreateUI(
+                              context, groups[groupIndex]["options"][0]),
+                        ),
+                      ),
+                    ),
+                ],
+              );
+            }
+
           }
         },
       ),
