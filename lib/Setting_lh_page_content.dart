@@ -32,8 +32,9 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
         {
           "title": AppConstants.clearCacheText,
           "icon": Icons.delete,
-          "action": () => print("Rate Us tapped"),
-          "subTitle": ""
+          "action": () => {},
+          "iconUrl":"assets/images/ic_set_list_clear@2x.png",
+
         }
       ]
     },
@@ -43,12 +44,14 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
         {
           "title": AppConstants.privacyPolicyText,
           "icon": Icons.security,
-          "action": () => {}
+          "action": () => {},
+          "iconUrl":"assets/images/ic_set_list_policy@2x.png",
         },
         {
           "title": AppConstants.termsOfUseText,
           "icon": Icons.description,
-          "action": () => print("Terms of Use tapped")
+          "action": () => print("Terms of Use tapped"),
+          "iconUrl":"assets/images/ic_set_list_term@2x.png",
         }
       ]
     },
@@ -58,17 +61,24 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
         {
           "title": AppConstants.rateUsText,
           "icon": Icons.star,
-          "action": () => print("Rate Us tapped")
+          "action": () => print("Rate Us tapped"),
+          "iconUrl":"assets/images/ic_set_list_rate@2x.png",
+
         },
         {
           "title": AppConstants.inviteFriendsText,
           "icon": Icons.people,
-          "action": () => print("Invite Friends tapped")
+          "action": () => print("Invite Friends tapped"),
+          "iconUrl":"assets/images/ic_set_list_invite@2x.png",
+
+
         },
         {
           "title": AppConstants.aboutUsText,
           "icon": Icons.info,
-          "action": () => print("About Us tapped")
+          "action": () => print("About Us tapped"),
+          "iconUrl":"assets/images/ic_set_list_about@2x.png",
+
         }
       ]
     },
@@ -93,7 +103,7 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
           "title": AppConstants.clearCacheText,
           "icon": Icons.delete,
           "action": () => print("Rate Us tapped"),
-          "subTitle": ""
+          "iconUrl":"assets/images/ic_set_list_clear@2x.png",
         }
       ]
     },
@@ -103,12 +113,14 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
         {
           "title": AppConstants.privacyPolicyText,
           "icon": Icons.security,
-          "action": () => {}
+          "action": () => {},
+          "iconUrl":"assets/images/ic_set_list_policy@2x.png",
         },
         {
           "title": AppConstants.termsOfUseText,
           "icon": Icons.description,
-          "action": () => print("Terms of Use tapped")
+          "action": () => print("Terms of Use tapped"),
+        "iconUrl":"assets/images/ic_set_list_term@2x.png",
         }
       ]
     },
@@ -118,17 +130,23 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
         {
           "title": AppConstants.rateUsText,
           "icon": Icons.star,
-          "action": () => print("Rate Us tapped")
+          "action": () => print("Rate Us tapped"),
+          "iconUrl":"assets/images/ic_set_list_rate@2x.png",
+
         },
         {
           "title": AppConstants.inviteFriendsText,
           "icon": Icons.people,
-          "action": () => print("Invite Friends tapped")
+          "action": () => print("Invite Friends tapped"),
+          "iconUrl":"assets/images/ic_set_list_invite@2x.png",
+
         },
         {
           "title": AppConstants.aboutUsText,
           "icon": Icons.info,
-          "action": () => print("About Us tapped")
+          "action": () => print("About Us tapped"),
+          "iconUrl":"assets/images/ic_set_list_about@2x.png",
+
         },
         // {
         //   "title": AppConstants.restoreText,
@@ -483,10 +501,17 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
             builder: (context, snapshot) {
               String cacheSizeText =
               snapshot.hasData ? snapshot.data! : '获取中...';
+
               return Material(
                 color: Colors.white,
                 child: ListTile(
-                  leading: Icon(option["icon"]),
+
+                  leading: Image(
+                      image: AssetImage(option["iconUrl"]),
+                    height: 24,
+                    width: 24,
+                  ),
+
                   title: Text(option["title"]),
                   trailing: Text(cacheSizeText),
                   onTap: () =>
@@ -504,7 +529,11 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
       return Material(
         color: Colors.white,
         child: ListTile(
-          leading: Icon(option["icon"]),
+          leading: Image(
+            image: AssetImage(option["iconUrl"]),
+            height: 24,
+            width: 24,
+          ),
           title: Text(option["title"]),
           trailing: Icon(Icons.arrow_forward_ios, size: 16),
           // onTap: _togglePremiumSectionVisibility,
