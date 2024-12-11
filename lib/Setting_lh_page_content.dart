@@ -9,6 +9,11 @@ import 'package:day01/constants.dart';
 import 'package:day01/about_us.dart';
 import 'package:day01/Webview.dart';
 
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
 class SettingsLHPage extends StatefulWidget {
   @override
   _SettingsLHPageState createState() => _SettingsLHPageState();
@@ -67,16 +72,16 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
         }
       ]
     },
-    {
-      "groupName": "Legal",
-      "options": [
-        {
-          "title": AppConstants.restoreText,
-          "icon": Icons.email,
-          "action": () => print("Contact Us tapped")
-        }
-      ]
-    },
+    // {
+    //   "groupName": "Legal",
+    //   "options": [
+    //     {
+    //       "title": AppConstants.restoreText,
+    //       "icon": Icons.email,
+    //       "action": () => print("Contact Us tapped")
+    //     }
+    //   ]
+    // },
   ];
 
   // 定义分组数据结构，每个分组包含组名和组内选项列表
@@ -125,11 +130,11 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
           "icon": Icons.info,
           "action": () => print("About Us tapped")
         },
-        {
-          "title": AppConstants.restoreText,
-          "icon": Icons.info,
-          "action": () => print("Restore")
-        }
+        // {
+        //   "title": AppConstants.restoreText,
+        //   "icon": Icons.info,
+        //   "action": () => print("Restore")
+        // }
       ]
     },
   ];
@@ -145,7 +150,7 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
       ),
       backgroundColor: Color(0xFFF7F9FA), // 设置整个页面的背景颜色为#F7F9FA
       body: ListView.builder(
-        padding: EdgeInsets.fromLTRB(0, 0, 0, 8),
+        padding: EdgeInsets.fromLTRB(0, 0, 0, 30),
 
         itemCount: _isPremiumSectionVisible == true
             ? groupsDefault.length + 1
@@ -180,7 +185,7 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
                       borderRadius: BorderRadius.circular(12),
                       image: DecorationImage(
                         image:
-                            AssetImage('assets/images/img_set_card_bg@2x.png'),
+                        AssetImage('assets/images/img_set_card_bg@2x.png'),
                         // 替换为你实际的图片路径
                         fit: BoxFit.cover,
                       ),
@@ -232,7 +237,7 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
             // 在这里添加Premium Plan Section相关代码
           } else {
             final List<Map<String, dynamic>> currentGroups =
-                _isPremiumSectionVisible ? groupsDefault : groups;
+            _isPremiumSectionVisible ? groupsDefault : groups;
             int index = _isPremiumSectionVisible ? groupIndex - 1 : groupIndex;
 
             return Column(
@@ -275,12 +280,13 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
                         ),
                       );
                     },
-                    separatorBuilder: (context, index) => Divider(
-                      height: 0,
-                      color: Color(0xFFF5F5F5),
-                      indent: 30,
-                      endIndent: 30,
-                    ),
+                    separatorBuilder: (context, index) =>
+                        Divider(
+                          height: 0,
+                          color: Color(0xFFF5F5F5),
+                          indent: 30,
+                          endIndent: 30,
+                        ),
                   )
                 else
                   Padding(
@@ -325,25 +331,21 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
     if (optionTitle == AppConstants.clearCacheText) {
       _clearCache();
     } else if (optionTitle == AppConstants.privacyPolicyText) {
-      _togglePremiumSectionVisibility();
+      // _togglePremiumSectionVisibility();
+      _loadH5("https://blog.csdn.net/qq_39698985/article/details/141332645",
+          'Privacy Policy');
     } else if (optionTitle == AppConstants.termsOfUseText) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) =>
-              WebViewPage(url: "https://dev.adjust.com/en/sdk/ios/v4/features", title: 'Privacy Policy'),
-        ),
-      );
+      _loadH5("https://blog.csdn.net/qq_39698985/article/details/141332645",
+          'Privacy Policy');
     } else if (optionTitle == AppConstants.rateUsText) {
-
-
-
+      _rateUs();
     } else if (optionTitle == AppConstants.inviteFriendsText) {
-    } else if (optionTitle == AppConstants.aboutUsText) {
+      _inviteFriends();
+    } else
+    if (optionTitle == AppConstants.aboutUsText) {
       Navigator.push(
           context,
-          MaterialPageRoute(builder: (context)=> AboutUs()));
-
+          MaterialPageRoute(builder: (context) => AboutUs()));
     } else if (optionTitle == AppConstants.restoreText) {}
 
     // 这里可以添加更多通用逻辑，比如显示一个简单的提示信息（实际项目中可能用SnackBar等更好的方式来显示提示）
@@ -353,6 +355,44 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
 
     print('操作执行完毕，可以进行一些后续的通用处理，比如更新UI等');
     // 例如，若后续有需要统一更新界面某些状态等操作，可以在这里添加相关逻辑
+  }
+
+  void _loadH5(String url, String title) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            WebViewPage(url: url, title: title),
+      ),
+    );
+  }
+
+  void _rateUs() async {
+    try {
+      final Uri url = await getAppLink(utmCampaign: 'rateUs');
+      await launchUrl(url);
+    } catch (e) {
+      final Uri url = await getAppLink(utmCampaign: 'rateUs');
+      // myPrint('Could not launch $url. Error: $e');
+    }
+  }
+
+  void _inviteFriends() async {
+    const String AppName = "Coin Identifier - Coin Finder";
+    // 处理邀请朋友的点击事件
+    // EventLogger.logEvent(click_InviteFriends);
+    final Uri url = await getAppLink(utmCampaign: 'inviteFriends');
+    final result = await Share.share(
+        'Download $AppName to identify your coin! $url',
+        subject: 'Download $AppName to identify your coin!');
+
+    if (result.status == ShareResultStatus.success) {
+      Fluttertoast.showToast(
+        msg: 'Shared success',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+      );
+    }
   }
 
   void _clearCache() async {
@@ -370,6 +410,29 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
       print('清除缓存出错: $e');
     }
   }
+
+
+  /// iOS Adjust  token
+  // const String kiOSAdjustToken = '3t9qqpdspu0w';
+  // /// Android Adjust  token
+  // const String kAndroidAdjustToken = 'j0up8ue6abcw';
+
+  Future<Uri> getAppLink({String utmCampaign = ''}) async {
+    const String APPItunesID = "6737041776";
+    const String AppStoreUrl = "https://apps.apple.com/us/app/id$APPItunesID";
+
+    final url = Platform.isIOS
+        ? Uri.parse(AppStoreUrl)
+        : Uri.parse(getUrlWithUtmSrc(
+        (await PackageInfo.fromPlatform()).packageName, utmCampaign));
+    return url;
+  }
+
+  String getUrlWithUtmSrc(String packageName, String utmCampaign) {
+    const String PLAY_APP_PREFIX = "https://play.google.com/store/apps/details?id=";
+    return "$PLAY_APP_PREFIX$packageName&referrer=utm_source%3Dappcross%26utm_medium%3Drecommend%26utm_campaign%3D$utmCampaign";
+  }
+
 
   Future<String> _getCacheSize() async {
     try {
@@ -419,15 +482,16 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
             future: _getCacheSize(),
             builder: (context, snapshot) {
               String cacheSizeText =
-                  snapshot.hasData ? snapshot.data! : '获取中...';
+              snapshot.hasData ? snapshot.data! : '获取中...';
               return Material(
                 color: Colors.white,
                 child: ListTile(
                   leading: Icon(option["icon"]),
                   title: Text(option["title"]),
                   trailing: Text(cacheSizeText),
-                  onTap: () => handleOptionTap(
-                      option["title"], option["action"]), // 同样使用共用方法，传入对应参数
+                  onTap: () =>
+                      handleOptionTap(
+                          option["title"], option["action"]), // 同样使用共用方法，传入对应参数
 
                   // onTap: _clearCache,
                 ),
@@ -444,8 +508,9 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
           title: Text(option["title"]),
           trailing: Icon(Icons.arrow_forward_ios, size: 16),
           // onTap: _togglePremiumSectionVisibility,
-          onTap: () => handleOptionTap(
-              option["title"], option["action"]), // 同样使用共用方法，传入对应参数
+          onTap: () =>
+              handleOptionTap(
+                  option["title"], option["action"]), // 同样使用共用方法，传入对应参数
         ),
       );
     }
