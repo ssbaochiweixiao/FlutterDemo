@@ -254,6 +254,30 @@
       "languageVersion": "3.3"
     },
     {
+      "name": "webview_flutter",
+      "rootUri": "file:///Users/yuxueer/.pub-cache/hosted/pub.flutter-io.cn/webview_flutter-4.10.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.5"
+    },
+    {
+      "name": "webview_flutter_android",
+      "rootUri": "file:///Users/yuxueer/.pub-cache/hosted/pub.flutter-io.cn/webview_flutter_android-4.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.5"
+    },
+    {
+      "name": "webview_flutter_platform_interface",
+      "rootUri": "file:///Users/yuxueer/.pub-cache/hosted/pub.flutter-io.cn/webview_flutter_platform_interface-2.10.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "webview_flutter_wkwebview",
+      "rootUri": "file:///Users/yuxueer/.pub-cache/hosted/pub.flutter-io.cn/webview_flutter_wkwebview-3.16.3",
+      "packageUri": "lib/",
+      "languageVersion": "3.5"
+    },
+    {
       "name": "xdg_directories",
       "rootUri": "file:///Users/yuxueer/.pub-cache/hosted/pub.flutter-io.cn/xdg_directories-1.1.0",
       "packageUri": "lib/",
@@ -266,7 +290,7 @@
       "languageVersion": "3.5"
     }
   ],
-  "generated": "2024-12-10T09:53:46.105946Z",
+  "generated": "2024-12-11T07:58:03.542783Z",
   "generator": "pub",
   "generatorVersion": "3.5.4",
   "flutterRoot": "file:///Users/yuxueer/Desktop/Flutter-development/flutter",

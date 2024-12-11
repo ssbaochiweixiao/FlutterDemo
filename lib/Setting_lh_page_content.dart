@@ -6,6 +6,9 @@ import 'package:flutter/services.dart' show rootBundle;
 
 import 'package:day01/constants.dart';
 
+import 'package:day01/about_us.dart';
+import 'package:day01/Webview.dart';
+
 class SettingsLHPage extends StatefulWidget {
   @override
   _SettingsLHPageState createState() => _SettingsLHPageState();
@@ -324,9 +327,23 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
     } else if (optionTitle == AppConstants.privacyPolicyText) {
       _togglePremiumSectionVisibility();
     } else if (optionTitle == AppConstants.termsOfUseText) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) =>
+              WebViewPage(url: "https://dev.adjust.com/en/sdk/ios/v4/features", title: 'Privacy Policy'),
+        ),
+      );
     } else if (optionTitle == AppConstants.rateUsText) {
+
+
+
     } else if (optionTitle == AppConstants.inviteFriendsText) {
     } else if (optionTitle == AppConstants.aboutUsText) {
+      Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context)=> AboutUs()));
+
     } else if (optionTitle == AppConstants.restoreText) {}
 
     // 这里可以添加更多通用逻辑，比如显示一个简单的提示信息（实际项目中可能用SnackBar等更好的方式来显示提示）

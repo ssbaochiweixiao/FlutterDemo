@@ -296,6 +296,34 @@
             </list>
           </value>
         </entry>
+        <entry key="webview_flutter">
+          <value>
+            <list>
+              <option value="$PROJECT_DIR$/../.pub-cache/hosted/pub.flutter-io.cn/webview_flutter-4.10.0/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="webview_flutter_android">
+          <value>
+            <list>
+              <option value="$PROJECT_DIR$/../.pub-cache/hosted/pub.flutter-io.cn/webview_flutter_android-4.1.0/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="webview_flutter_platform_interface">
+          <value>
+            <list>
+              <option value="$PROJECT_DIR$/../.pub-cache/hosted/pub.flutter-io.cn/webview_flutter_platform_interface-2.10.0/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="webview_flutter_wkwebview">
+          <value>
+            <list>
+              <option value="$PROJECT_DIR$/../.pub-cache/hosted/pub.flutter-io.cn/webview_flutter_wkwebview-3.16.3/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="xdg_directories">
           <value>
             <list>
@@ -345,6 +373,10 @@
       <root url="file://$PROJECT_DIR$/../.pub-cache/hosted/pub.flutter-io.cn/test_api-0.7.2/lib" />
       <root url="file://$PROJECT_DIR$/../.pub-cache/hosted/pub.flutter-io.cn/vector_math-2.1.4/lib" />
       <root url="file://$PROJECT_DIR$/../.pub-cache/hosted/pub.flutter-io.cn/vm_service-14.2.5/lib" />
+      <root url="file://$PROJECT_DIR$/../.pub-cache/hosted/pub.flutter-io.cn/webview_flutter-4.10.0/lib" />
+      <root url="file://$PROJECT_DIR$/../.pub-cache/hosted/pub.flutter-io.cn/webview_flutter_android-4.1.0/lib" />
+      <root url="file://$PROJECT_DIR$/../.pub-cache/hosted/pub.flutter-io.cn/webview_flutter_platform_interface-2.10.0/lib" />
+      <root url="file://$PROJECT_DIR$/../.pub-cache/hosted/pub.flutter-io.cn/webview_flutter_wkwebview-3.16.3/lib" />
       <root url="file://$PROJECT_DIR$/../.pub-cache/hosted/pub.flutter-io.cn/xdg_directories-1.1.0/lib" />
       <root url="file://$PROJECT_DIR$/../Desktop/Flutter-development/flutter/bin/cache/pkg/sky_engine/lib" />
       <root url="file://$PROJECT_DIR$/../Desktop/Flutter-development/flutter/packages/flutter/lib" />
