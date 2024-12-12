@@ -1,18 +1,25 @@
+
 import 'package:flutter/material.dart';
 
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
-import 'package:flutter/services.dart' show rootBundle;
 
-import 'package:day01/constants.dart';
+// 全局的
+import 'constants.dart';
+import 'utils/ImageUtil.dart';
 
-import 'package:day01/about_us.dart';
-import 'package:day01/Webview.dart';
-
+// url and share
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:share_plus/share_plus.dart';
+
+// 提示
 import 'package:fluttertoast/fluttertoast.dart';
+
+// 子页面导入
+import 'about_us.dart';
+import 'webview.dart';
+
 
 class SettingsLHPage extends StatefulWidget {
   @override
@@ -33,7 +40,7 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
           "title": AppConstants.clearCacheText,
           "icon": Icons.delete,
           "action": () => {},
-          "iconUrl":"assets/images/ic_set_list_clear@2x.png",
+          "iconUrl":"ic_set_list_clear@2x.png",
 
         }
       ]
@@ -45,13 +52,13 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
           "title": AppConstants.privacyPolicyText,
           "icon": Icons.security,
           "action": () => {},
-          "iconUrl":"assets/images/ic_set_list_policy@2x.png",
+          "iconUrl":"ic_set_list_policy@2x.png",
         },
         {
           "title": AppConstants.termsOfUseText,
           "icon": Icons.description,
           "action": () => print("Terms of Use tapped"),
-          "iconUrl":"assets/images/ic_set_list_term@2x.png",
+          "iconUrl":"ic_set_list_term@2x.png",
         }
       ]
     },
@@ -62,14 +69,14 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
           "title": AppConstants.rateUsText,
           "icon": Icons.star,
           "action": () => print("Rate Us tapped"),
-          "iconUrl":"assets/images/ic_set_list_rate@2x.png",
+          "iconUrl":"ic_set_list_rate@2x.png",
 
         },
         {
           "title": AppConstants.inviteFriendsText,
           "icon": Icons.people,
           "action": () => print("Invite Friends tapped"),
-          "iconUrl":"assets/images/ic_set_list_invite@2x.png",
+          "iconUrl":"ic_set_list_invite@2x.png",
 
 
         },
@@ -77,7 +84,7 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
           "title": AppConstants.aboutUsText,
           "icon": Icons.info,
           "action": () => print("About Us tapped"),
-          "iconUrl":"assets/images/ic_set_list_about@2x.png",
+          "iconUrl":"ic_set_list_about@2x.png",
 
         }
       ]
@@ -103,7 +110,7 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
           "title": AppConstants.clearCacheText,
           "icon": Icons.delete,
           "action": () => print("Rate Us tapped"),
-          "iconUrl":"assets/images/ic_set_list_clear@2x.png",
+          "iconUrl":"ic_set_list_clear@2x.png",
         }
       ]
     },
@@ -114,13 +121,13 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
           "title": AppConstants.privacyPolicyText,
           "icon": Icons.security,
           "action": () => {},
-          "iconUrl":"assets/images/ic_set_list_policy@2x.png",
+          "iconUrl":"ic_set_list_policy@2x.png",
         },
         {
           "title": AppConstants.termsOfUseText,
           "icon": Icons.description,
           "action": () => print("Terms of Use tapped"),
-        "iconUrl":"assets/images/ic_set_list_term@2x.png",
+        "iconUrl":"ic_set_list_term@2x.png",
         }
       ]
     },
@@ -131,21 +138,21 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
           "title": AppConstants.rateUsText,
           "icon": Icons.star,
           "action": () => print("Rate Us tapped"),
-          "iconUrl":"assets/images/ic_set_list_rate@2x.png",
+          "iconUrl":"ic_set_list_rate@2x.png",
 
         },
         {
           "title": AppConstants.inviteFriendsText,
           "icon": Icons.people,
           "action": () => print("Invite Friends tapped"),
-          "iconUrl":"assets/images/ic_set_list_invite@2x.png",
+          "iconUrl":"ic_set_list_invite@2x.png",
 
         },
         {
           "title": AppConstants.aboutUsText,
           "icon": Icons.info,
           "action": () => print("About Us tapped"),
-          "iconUrl":"assets/images/ic_set_list_about@2x.png",
+          "iconUrl":"ic_set_list_about@2x.png",
 
         },
         // {
@@ -202,8 +209,12 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
                       color: Colors.green.shade100,
                       borderRadius: BorderRadius.circular(12),
                       image: DecorationImage(
-                        image:
-                        AssetImage('assets/images/img_set_card_bg@2x.png'),
+                        image:getAssetImage("img_set_card_bg@2x.png"),
+
+                        // AssetImage(
+                        //   "img_set_card_bg@2x.png'"
+                        // ),
+                        // AssetImage('img_set_card_bg@2x.png'),
                         // 替换为你实际的图片路径
                         fit: BoxFit.cover,
                       ),
@@ -507,7 +518,7 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
                 child: ListTile(
 
                   leading: Image(
-                      image: AssetImage(option["iconUrl"]),
+                      image: getAssetImage(option["iconUrl"]),
                     height: 24,
                     width: 24,
                   ),
@@ -530,7 +541,7 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
         color: Colors.white,
         child: ListTile(
           leading: Image(
-            image: AssetImage(option["iconUrl"]),
+            image: getAssetImage(option["iconUrl"]),
             height: 24,
             width: 24,
           ),
