@@ -37,25 +37,14 @@ class HYSizeFit {
   static double setHeightRpx(double size) {
     return HYSizeFit.heightrpx * size;
   }
-
-  static bool smallPhone() {
-    if (isIOS()) {
-      if (HYSizeFit.screenWidth / HYSizeFit.screenHeight > 0.5) {
-        return true;
-      }
-    } else {
-      if (HYSizeFit.screenHeight <= 732) {
-        return true;
-      }
-    }
-    return false;
-  }
 }
+
 extension DoubleRpxExtension on double {
   double toRpx() {
     return HYSizeFit.rpx * this;
   }
 }
+
 extension IntRpxExtension on int {
   double toRpx() {
     return HYSizeFit.rpx * this;

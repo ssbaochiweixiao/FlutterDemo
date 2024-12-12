@@ -1,4 +1,3 @@
-
 import 'package:day01/utils/common.dart';
 import 'package:flutter/material.dart';
 
@@ -22,28 +21,26 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'about_us.dart';
 import 'webview.dart';
 
-
 class SettingsLHPage extends StatefulWidget {
   @override
   _SettingsLHPageState createState() => _SettingsLHPageState();
 }
 
 class _SettingsLHPageState extends State<SettingsLHPage> {
-  bool _isPremiumSectionVisible = true; // 用于控制Premium组是否可见
+  bool _isPremiumSectionVisible = false; // 用于控制Premium组是否可见
 
   // 页面相关代码逻辑...
 
   // 定义分组数据结构，每个分组包含组名和组内选项列表
   final List<Map<String, dynamic>> groups = [
     {
-      "groupName": "General",
+      "groupName": "Settings",
       "options": [
         {
           "title": AppConstants.clearCacheText,
           "icon": Icons.delete,
           "action": () => {},
-          "iconUrl":"ic_set_list_clear@2x.png",
-
+          "iconUrl": "ic_set_list_clear@2x.png",
         }
       ]
     },
@@ -54,53 +51,50 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
           "title": AppConstants.privacyPolicyText,
           "icon": Icons.security,
           "action": () => {},
-          "iconUrl":"ic_set_list_policy@2x.png",
+          "iconUrl": "ic_set_list_policy@2x.png",
         },
         {
           "title": AppConstants.termsOfUseText,
           "icon": Icons.description,
           "action": () => print("Terms of Use tapped"),
-          "iconUrl":"ic_set_list_term@2x.png",
+          "iconUrl": "ic_set_list_term@2x.png",
         }
       ]
     },
     {
-      "groupName": "About",
+      "groupName": "Legal",
       "options": [
         {
           "title": AppConstants.rateUsText,
           "icon": Icons.star,
           "action": () => print("Rate Us tapped"),
-          "iconUrl":"ic_set_list_rate@2x.png",
-
+          "iconUrl": "ic_set_list_rate@2x.png",
         },
         {
           "title": AppConstants.inviteFriendsText,
           "icon": Icons.people,
           "action": () => print("Invite Friends tapped"),
-          "iconUrl":"ic_set_list_invite@2x.png",
-
-
+          "iconUrl": "ic_set_list_invite@2x.png",
         },
         {
           "title": AppConstants.aboutUsText,
           "icon": Icons.info,
           "action": () => print("About Us tapped"),
-          "iconUrl":"ic_set_list_about@2x.png",
-
+          "iconUrl": "ic_set_list_about@2x.png",
         }
       ]
     },
-    // {
-    //   "groupName": "Legal",
-    //   "options": [
-    //     {
-    //       "title": AppConstants.restoreText,
-    //       "icon": Icons.email,
-    //       "action": () => print("Contact Us tapped")
-    //     }
-    //   ]
-    // },
+    {
+      "groupName": "Legal",
+      "options": [
+        {
+          "title": AppConstants.contactUsText,
+          "icon": Icons.email,
+          "action": () => print("Contact Us tapped"),
+          "iconUrl": "ic_set_list_about@2x.png",
+        }
+      ]
+    },
   ];
 
   // 定义分组数据结构，每个分组包含组名和组内选项列表
@@ -112,7 +106,7 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
           "title": AppConstants.clearCacheText,
           "icon": Icons.delete,
           "action": () => print("Rate Us tapped"),
-          "iconUrl":"ic_set_list_clear@2x.png",
+          "iconUrl": "ic_set_list_clear@2x.png",
         }
       ]
     },
@@ -123,13 +117,13 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
           "title": AppConstants.privacyPolicyText,
           "icon": Icons.security,
           "action": () => {},
-          "iconUrl":"ic_set_list_policy@2x.png",
+          "iconUrl": "ic_set_list_policy@2x.png",
         },
         {
           "title": AppConstants.termsOfUseText,
           "icon": Icons.description,
           "action": () => print("Terms of Use tapped"),
-        "iconUrl":"ic_set_list_term@2x.png",
+          "iconUrl": "ic_set_list_term@2x.png",
         }
       ]
     },
@@ -140,28 +134,26 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
           "title": AppConstants.rateUsText,
           "icon": Icons.star,
           "action": () => print("Rate Us tapped"),
-          "iconUrl":"ic_set_list_rate@2x.png",
-
+          "iconUrl": "ic_set_list_rate@2x.png",
         },
         {
           "title": AppConstants.inviteFriendsText,
           "icon": Icons.people,
           "action": () => print("Invite Friends tapped"),
-          "iconUrl":"ic_set_list_invite@2x.png",
-
+          "iconUrl": "ic_set_list_invite@2x.png",
         },
         {
           "title": AppConstants.aboutUsText,
           "icon": Icons.info,
           "action": () => print("About Us tapped"),
-          "iconUrl":"ic_set_list_about@2x.png",
-
+          "iconUrl": "ic_set_list_about@2x.png",
         },
-        // {
-        //   "title": AppConstants.restoreText,
-        //   "icon": Icons.info,
-        //   "action": () => print("Restore")
-        // }
+        {
+          "title": AppConstants.restoreText,
+          "icon": Icons.info,
+          "action": () => print("Restore"),
+          "iconUrl": "ic_set_list_about@2x.png",
+        }
       ]
     },
   ];
@@ -176,168 +168,178 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
         title: Text('Settings'),
       ),
       backgroundColor: ColorUtil.stringColor("#F7F9FA"), // 设置整个页面的背景颜色为#F7F9FA
-      body: ListView.builder(
-        padding: EdgeInsets.fromLTRB(0, 0, 0, 30),
+      body: Stack(children: [
+        ListView.builder(
+          padding: EdgeInsets.fromLTRB(0, 0, 0, 30),
 
-        itemCount: _isPremiumSectionVisible == true
-            ? groupsDefault.length + 1
-            : groups.length, // 增加一项用于展示Premium Plan区域
+          itemCount: _isPremiumSectionVisible == true
+              ? groupsDefault.length + 1
+              : groups.length, // 增加一项用于展示Premium Plan区域
 
-        itemBuilder: (context, groupIndex) {
-          // 订阅banner
-          if (groupIndex == 0 && _isPremiumSectionVisible) {
-            // 未订阅e
-            return Visibility(
-              visible: _isPremiumSectionVisible,
-              child: Column(
+          itemBuilder: (context, groupIndex) {
+            // 订阅banner
+            if (groupIndex == 0 && _isPremiumSectionVisible) {
+              // 未订阅e
+              return Visibility(
+                visible: _isPremiumSectionVisible,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: 54,
+                      padding: EdgeInsets.fromLTRB(16, 0, 0, 8),
+                      alignment: Alignment.bottomLeft,
+                      child: Text(
+                        "Premium",
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Color(0xFF737373),
+                          fontFamily: Fonts.HSBold,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(16, 0, 16, 0),
+                      padding: EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Colors.green.shade100,
+                        borderRadius: BorderRadius.circular(12),
+                        image: DecorationImage(
+                          image: getAssetImage("img_set_card_bg@2x.png"),
+
+                          // AssetImage(
+                          //   "img_set_card_bg@2x.png'"
+                          // ),
+                          // AssetImage('img_set_card_bg@2x.png'),
+                          // 替换为你实际的图片路径
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Premiums Plan',
+                                style: TextStyle(
+                                  color: Color(0xFF135142),
+                                  // fontSize: 20,
+                                  fontFamily: Fonts.HSBold,
+                                ),
+                              ),
+                              Text(
+                                'Unlock and Become a Premium Member',
+                                style: TextStyle(
+                                  color: Color(0xFF135142),
+                                  fontSize: 12,
+                                ),
+                              ),
+                              SizedBox(height: 15),
+                              SizedBox(
+                                height: 32,
+                                child: ElevatedButton(
+                                  onPressed: () {},
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(16),
+                                    ),
+                                  ),
+                                  child: Text('Get Now!'),
+                                ),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 4),
+                  ],
+                ),
+              );
+              // 在这里添加Premium Plan Section相关代码
+            } else {
+              final List<Map<String, dynamic>> currentGroups =
+                  _isPremiumSectionVisible ? groupsDefault : groups;
+              int index =
+                  _isPremiumSectionVisible ? groupIndex - 1 : groupIndex;
+
+              return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // 显示组名，设置高度为56，文本居左下，底部内边距为8
                   Container(
-                    height: 54,
-                    padding: EdgeInsets.fromLTRB(16, 0, 0, 8),
+                    height: HYSizeFit.setRpx(112),
+                    padding: EdgeInsets.fromLTRB(
+                        HYSizeFit.setRpx(32), 0, 0, HYSizeFit.setRpx(8)),
                     alignment: Alignment.bottomLeft,
                     child: Text(
-                      "Premium",
+                      currentGroups[index]["groupName"],
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: HYSizeFit.setRpx(28),
                         color: Color(0xFF737373),
-                        fontFamily: Fonts.HSBold,
                       ),
                     ),
                   ),
-                  Container(
-                    margin: EdgeInsets.fromLTRB(16, 0, 16, 0),
-                    padding: EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: Colors.green.shade100,
-                      borderRadius: BorderRadius.circular(12),
-                      image: DecorationImage(
-                        image:getAssetImage("img_set_card_bg@2x.png"),
+                  // 遍历组内选项并构建ListTile展示
+                  if (currentGroups[index]["options"].length > 1)
+                    ListView.separated(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: currentGroups[index]["options"].length,
+                      itemBuilder: (context, optionIndex) {
+                        bool isFirst = optionIndex == 0;
+                        bool isLast = optionIndex ==
+                            currentGroups[index]["options"].length - 1;
 
-                        // AssetImage(
-                        //   "img_set_card_bg@2x.png'"
-                        // ),
-                        // AssetImage('img_set_card_bg@2x.png'),
-                        // 替换为你实际的图片路径
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Premiums Plan',
-                              style: TextStyle(
-                                color: Color(0xFF135142),
-                                // fontSize: 20,
-                                fontFamily: Fonts.HSBold,
-                              ),
+                        return Container(
+                          margin: EdgeInsets.symmetric(
+                              horizontal: HYSizeFit.setRpx(32)),
+                          height: HYSizeFit.setRpx(112),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.vertical(
+                              top: isFirst
+                                  ? Radius.circular(HYSizeFit.setRpx(24))
+                                  : Radius.zero,
+                              bottom: isLast
+                                  ? Radius.circular(HYSizeFit.setRpx(24))
+                                  : Radius.zero,
                             ),
-                            Text(
-                              'Unlock and Become a Premium Member',
-                              style: TextStyle(
-                                color: Color(0xFF135142),
-                                fontSize: 12,
-                              ),
-                            ),
-                            SizedBox(height: 15),
-                            SizedBox(
-                              height: 32,
-                              child: ElevatedButton(
-                                onPressed: () {},
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                ),
-                                child: Text('Get Now!'),
-                              ),
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 4),
-                ],
-              ),
-            );
-            // 在这里添加Premium Plan Section相关代码
-          } else {
-            final List<Map<String, dynamic>> currentGroups =
-            _isPremiumSectionVisible ? groupsDefault : groups;
-            int index = _isPremiumSectionVisible ? groupIndex - 1 : groupIndex;
-
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // 显示组名，设置高度为56，文本居左下，底部内边距为8
-                Container(
-                  height: 54,
-                  padding: EdgeInsets.fromLTRB(16, 0, 0, 8),
-                  alignment: Alignment.bottomLeft,
-                  child: Text(
-                    currentGroups[index]["groupName"],
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Color(0xFF737373),
-                    ),
-                  ),
-                ),
-                // 遍历组内选项并构建ListTile展示
-                if (currentGroups[index]["options"].length > 1)
-                  ListView.separated(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: currentGroups[index]["options"].length,
-                    itemBuilder: (context, optionIndex) {
-                      bool isFirst = optionIndex == 0;
-                      bool isLast = optionIndex ==
-                          currentGroups[index]["options"].length - 1;
-
-                      return Container(
-                        margin: EdgeInsets.symmetric(horizontal: 15),
-                        height: 55,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.vertical(
-                            top: isFirst ? Radius.circular(10) : Radius.zero,
-                            bottom: isLast ? Radius.circular(10) : Radius.zero,
+                            child: ListTileCreateUI(context,
+                                currentGroups[index]["options"][optionIndex]),
                           ),
-                          child: ListTileCreateUI(context,
-                              currentGroups[index]["options"][optionIndex]),
+                        );
+                      },
+                      separatorBuilder: (context, index) => Divider(
+                        height: 0.0,
+                        color: ColorUtil.stringColor("#F5F5F5"),
+                        indent: HYSizeFit.setRpx(63),
+                        endIndent: HYSizeFit.setRpx(63),
+                      ),
+                    )
+                  else
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 5),
+                      child: Container(
+                        margin: EdgeInsets.symmetric(
+                            horizontal: HYSizeFit.setRpx(32)),
+                        height: HYSizeFit.setRpx(112),
+                        child: ClipRRect(
+                          borderRadius:
+                              BorderRadius.circular(HYSizeFit.setRpx(24)),
+                          child: ListTileCreateUI(
+                              context, currentGroups[index]["options"][0]),
                         ),
-                      );
-                    },
-                    separatorBuilder: (context, index) =>
-                        Divider(
-                          height: 0,
-                          color: Color(0xFFF5F5F5),
-                          indent: 30,
-                          endIndent: 30,
-                        ),
-                  )
-                else
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 5),
-                    child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 15),
-                      height: 55,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: ListTileCreateUI(
-                            context, currentGroups[index]["options"][0]),
                       ),
                     ),
-                  ),
-              ],
-            );
-          }
-        },
-      ),
+                ],
+              );
+            }
+          },
+        ),
+      ]),
     );
   }
 
@@ -351,7 +353,6 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
 
   void _togglePremiumSectionVisibility() {
     setState(() {
-      print(111);
       _isPremiumSectionVisible = !_isPremiumSectionVisible;
     });
   }
@@ -373,11 +374,9 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
       _rateUs();
     } else if (optionTitle == AppConstants.inviteFriendsText) {
       _inviteFriends();
-    } else
-    if (optionTitle == AppConstants.aboutUsText) {
+    } else if (optionTitle == AppConstants.aboutUsText) {
       Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => AboutUs()));
+          context, MaterialPageRoute(builder: (context) => AboutUs()));
     } else if (optionTitle == AppConstants.restoreText) {}
 
     // 这里可以添加更多通用逻辑，比如显示一个简单的提示信息（实际项目中可能用SnackBar等更好的方式来显示提示）
@@ -393,8 +392,7 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) =>
-            WebViewPage(url: url, title: title),
+        builder: (context) => WebViewPage(url: url, title: title),
       ),
     );
   }
@@ -443,7 +441,6 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
     }
   }
 
-
   /// iOS Adjust  token
   // const String kiOSAdjustToken = '3t9qqpdspu0w';
   // /// Android Adjust  token
@@ -456,15 +453,15 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
     final url = Platform.isIOS
         ? Uri.parse(AppStoreUrl)
         : Uri.parse(getUrlWithUtmSrc(
-        (await PackageInfo.fromPlatform()).packageName, utmCampaign));
+            (await PackageInfo.fromPlatform()).packageName, utmCampaign));
     return url;
   }
 
   String getUrlWithUtmSrc(String packageName, String utmCampaign) {
-    const String PLAY_APP_PREFIX = "https://play.google.com/store/apps/details?id=";
+    const String PLAY_APP_PREFIX =
+        "https://play.google.com/store/apps/details?id=";
     return "$PLAY_APP_PREFIX$packageName&referrer=utm_source%3Dappcross%26utm_medium%3Drecommend%26utm_campaign%3D$utmCampaign";
   }
-
 
   Future<String> _getCacheSize() async {
     try {
@@ -514,25 +511,56 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
             future: _getCacheSize(),
             builder: (context, snapshot) {
               String cacheSizeText =
-              snapshot.hasData ? snapshot.data! : '获取中...';
+                  snapshot.hasData ? snapshot.data! : '获取中...';
 
-              return Material(
-                color: Colors.white,
-                child: ListTile(
-
-                  leading: Image(
-                      image: getAssetImage(option["iconUrl"]),
-                    height: 24,
-                    width: 24,
-                  ),
-
-                  title: Text(option["title"]),
-                  trailing: Text(cacheSizeText),
-                  onTap: () =>
-                      handleOptionTap(
-                          option["title"], option["action"]), // 同样使用共用方法，传入对应参数
-
-                  // onTap: _clearCache,
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Material(
+                      color: Colors.white,
+                      child: ListTile(
+                        contentPadding: EdgeInsets.zero,
+                        // 先将ListTile默认内边距清零，便于自行精确控制
+                        // minVerticalPadding: 0,
+                        // minLeadingWidth: 0,
+                        title: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(width: HYSizeFit.setRpx(32)),
+                            Image(
+                              image: getAssetImage(option["iconUrl"]),
+                              height: HYSizeFit.setRpx(48),
+                              width: HYSizeFit.setRpx(48),
+                            ),
+                            SizedBox(width: HYSizeFit.setRpx(12)),
+                            Text(
+                              option["title"],
+                              style: TextStyle(
+                                fontFamily: Fonts.HSRegular,
+                                fontSize: HYSizeFit.setRpx(28),
+                              ),
+                            ),
+                          ],
+                        ),
+                        trailing: Padding(
+                          padding: EdgeInsets.only(right: HYSizeFit.setRpx(32)),
+                          child: Text(
+                            cacheSizeText,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontFamily: Fonts.HSRegular,
+                              fontSize: HYSizeFit.setRpx(28),
+                              color: ColorUtil.stringColor("#D4D4D4"),
+                              // backgroundColor: Colors.red,
+                            ),
+                          ),
+                        ),
+                        onTap: () =>
+                            handleOptionTap(option["title"], option["action"]),
+                      ),
+                    )
+                  ],
                 ),
               );
             },
@@ -542,18 +570,39 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
     } else {
       return Material(
         color: Colors.white,
+
         child: ListTile(
-          leading: Image(
-            image: getAssetImage(option["iconUrl"]),
-            height: HYSizeFit.setRpx(24),
-            width: HYSizeFit.setRpx(24),
+
+          contentPadding: EdgeInsets.fromLTRB(
+            HYSizeFit.setRpx(32), // 左边距（距离ListTile左边边界）设为5，对应leading部分
+            HYSizeFit.setRpx(10), // 上边距（距离ListTile上边界）设为10
+            HYSizeFit.setRpx(32), // 右边距（距离ListTile右边边界）设为10，对应trailing部分
+            HYSizeFit.setRpx(10), // 下边距（距离ListTile下边界）设为10
           ),
-          title: Text(option["title"]),
+
+          title: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: 0, // 这里设置宽度为0，去除默认可能有的间距
+              ),
+              Image(
+                image: getAssetImage(option["iconUrl"]),
+                height: HYSizeFit.setRpx(48),
+                width: HYSizeFit.setRpx(48),
+              ),
+              SizedBox(width: HYSizeFit.setRpx(12)), // 添加宽度为10的SizedBox，实现图片与文本距离为10
+
+              Text(option["title"],
+                style: TextStyle(
+                    fontFamily: Fonts.HSRegular,
+                    fontSize: HYSizeFit.setRpx(28),
+                ),
+              ),
+            ],
+          ),
           trailing: Icon(Icons.arrow_forward_ios, size: 16),
-          // onTap: _togglePremiumSectionVisibility,
-          onTap: () =>
-              handleOptionTap(
-                  option["title"], option["action"]), // 同样使用共用方法，传入对应参数
+          onTap: () => handleOptionTap(option["title"], option["action"]),
         ),
       );
     }
