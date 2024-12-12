@@ -9,6 +9,7 @@ import 'package:day01/test_home_content.dart';
 import 'utils/Extends.dart';
 import 'utils/common.dart';
 
+
 void main() {
   runApp(MyApp());
 }
@@ -26,8 +27,9 @@ class MyApp extends StatelessWidget {
             // color: Colors.white,
             centerTitle: false,
           titleTextStyle: TextStyle(
-            color: Colors.black, // 设置AppBar标题文字颜色，这里示例为白色
-            fontSize: 24, // 设置AppBar标题文字大小
+            color: ColorUtil.stringColor("#135142"), // 设置AppBar标题文字颜色，这里示例为白色
+            fontSize: HYSizeFit.setRpx(24*2), // 设置AppBar标题文字大小
+            fontFamily: Fonts.HSMedium
               // Theme.of(context).textTheme.headlineMedium,
           ),
 
