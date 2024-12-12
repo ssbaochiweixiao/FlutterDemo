@@ -273,13 +273,14 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
                   Container(
                     height: HYSizeFit.setRpx(112),
                     padding: EdgeInsets.fromLTRB(
-                        HYSizeFit.setRpx(32), 0, 0, HYSizeFit.setRpx(8)),
+                        HYSizeFit.setRpx(32), 0, 0, HYSizeFit.setRpx(12)),
                     alignment: Alignment.bottomLeft,
                     child: Text(
                       currentGroups[index]["groupName"],
                       style: TextStyle(
                         fontSize: HYSizeFit.setRpx(28),
                         color: Color(0xFF737373),
+                        // backgroundColor: Colors.red
                       ),
                     ),
                   ),
@@ -321,7 +322,7 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
                     )
                   else
                     Padding(
-                      padding: EdgeInsets.symmetric(vertical: 5),
+                      padding: EdgeInsets.symmetric(vertical: HYSizeFit.setRpx(0)),
                       child: Container(
                         margin: EdgeInsets.symmetric(
                             horizontal: HYSizeFit.setRpx(32)),
@@ -501,110 +502,79 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
   // 新创建的方法，用于构建ListTile，根据hasRightText决定trailing显示内容，
 // 针对Clear Cache选项特殊处理以展示缓存信息
   Widget ListTileCreateUI(BuildContext context, Map<String, dynamic> option) {
-    if (option["title"] == AppConstants.clearCacheText) {
-      return StatefulBuilder(
-        builder: (BuildContext context, StateSetter setState) {
-          _updateCacheSize = () {
-            setState(() {});
-          };
-          return FutureBuilder<String>(
-            future: _getCacheSize(),
-            builder: (context, snapshot) {
-              String cacheSizeText =
-                  snapshot.hasData ? snapshot.data! : '获取中...';
+    bool isTextTrailing = option["title"] == AppConstants.clearCacheText;
 
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Material(
-                      color: Colors.white,
-                      child: ListTile(
-                        contentPadding: EdgeInsets.zero,
-                        // 先将ListTile默认内边距清零，便于自行精确控制
-                        // minVerticalPadding: 0,
-                        // minLeadingWidth: 0,
-                        title: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SizedBox(width: HYSizeFit.setRpx(32)),
-                            Image(
-                              image: getAssetImage(option["iconUrl"]),
-                              height: HYSizeFit.setRpx(48),
-                              width: HYSizeFit.setRpx(48),
-                            ),
-                            SizedBox(width: HYSizeFit.setRpx(12)),
-                            Text(
-                              option["title"],
-                              style: TextStyle(
-                                fontFamily: Fonts.HSRegular,
-                                fontSize: HYSizeFit.setRpx(28),
-                              ),
-                            ),
-                          ],
-                        ),
-                        trailing: Padding(
-                          padding: EdgeInsets.only(right: HYSizeFit.setRpx(32)),
-                          child: Text(
-                            cacheSizeText,
-                            textAlign: TextAlign.center,
+    return StatefulBuilder(
+      builder: (BuildContext context, StateSetter setState) {
+        _updateCacheSize = () {
+          setState(() {});
+        };
+        return FutureBuilder<String>(
+          future: _getCacheSize(),
+          builder: (context, snapshot) {
+            String cacheSizeText =
+            snapshot.hasData? snapshot.data! : '获取中...';
+
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Material(
+                    color: Colors.white,
+                    child: ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      title: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(width: HYSizeFit.setRpx(32)),
+                          Image(
+                            image: getAssetImage(option["iconUrl"]),
+                            height: HYSizeFit.setRpx(48),
+                            width: HYSizeFit.setRpx(48),
+                          ),
+                          SizedBox(width: HYSizeFit.setRpx(12)),
+                          Text(
+                            option["title"],
                             style: TextStyle(
                               fontFamily: Fonts.HSRegular,
                               fontSize: HYSizeFit.setRpx(28),
-                              color: ColorUtil.stringColor("#D4D4D4"),
-                              // backgroundColor: Colors.red,
                             ),
                           ),
-                        ),
-                        onTap: () =>
-                            handleOptionTap(option["title"], option["action"]),
+                        ],
                       ),
-                    )
-                  ],
-                ),
-              );
-            },
-          );
-        },
-      );
-    } else {
-      return Material(
-        color: Colors.white,
-
-        child: ListTile(
-
-          contentPadding: EdgeInsets.fromLTRB(
-            HYSizeFit.setRpx(32), // 左边距（距离ListTile左边边界）设为5，对应leading部分
-            HYSizeFit.setRpx(10), // 上边距（距离ListTile上边界）设为10
-            HYSizeFit.setRpx(32), // 右边距（距离ListTile右边边界）设为10，对应trailing部分
-            HYSizeFit.setRpx(10), // 下边距（距离ListTile下边界）设为10
-          ),
-
-          title: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: 0, // 这里设置宽度为0，去除默认可能有的间距
+                      trailing: isTextTrailing
+                          ? Padding(
+                        padding: EdgeInsets.only(right: HYSizeFit.setRpx(32)),
+                        child: Text(
+                          cacheSizeText,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontFamily: Fonts.HSRegular,
+                            fontSize: HYSizeFit.setRpx(28),
+                            color: ColorUtil.stringColor("#D4D4D4"),
+                            // backgroundColor: Colors.red,
+                          ),
+                        ),
+                      )
+                          : Container(
+                        margin: EdgeInsets.only(right: HYSizeFit.setRpx(32)),
+                        child: Image(
+                          image: getAssetImage("ic_set_list_more@2x.png"),
+                          height: HYSizeFit.setRpx(48),
+                          width: HYSizeFit.setRpx(48),
+                        ),
+                      ),
+                      onTap: () =>
+                          handleOptionTap(option["title"], option["action"]),
+                    ),
+                  )
+                ],
               ),
-              Image(
-                image: getAssetImage(option["iconUrl"]),
-                height: HYSizeFit.setRpx(48),
-                width: HYSizeFit.setRpx(48),
-              ),
-              SizedBox(width: HYSizeFit.setRpx(12)), // 添加宽度为10的SizedBox，实现图片与文本距离为10
-
-              Text(option["title"],
-                style: TextStyle(
-                    fontFamily: Fonts.HSRegular,
-                    fontSize: HYSizeFit.setRpx(28),
-                ),
-              ),
-            ],
-          ),
-          trailing: Icon(Icons.arrow_forward_ios, size: 16),
-          onTap: () => handleOptionTap(option["title"], option["action"]),
-        ),
-      );
-    }
+            );
+          },
+        );
+      },
+    );
   }
+
 }
