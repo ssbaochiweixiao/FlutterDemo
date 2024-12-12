@@ -1,4 +1,5 @@
 
+import 'package:day01/utils/common.dart';
 import 'package:flutter/material.dart';
 
 import 'package:path_provider/path_provider.dart';
@@ -7,6 +8,7 @@ import 'dart:io';
 // 全局的
 import 'constants.dart';
 import 'utils/ImageUtil.dart';
+import 'utils/Extends.dart';
 
 // url and share
 import 'package:package_info_plus/package_info_plus.dart';
@@ -173,7 +175,7 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
       appBar: AppBar(
         title: Text('Settings'),
       ),
-      backgroundColor: Color(0xFFF7F9FA), // 设置整个页面的背景颜色为#F7F9FA
+      backgroundColor: ColorUtil.stringColor("#F7F9FA"), // 设置整个页面的背景颜色为#F7F9FA
       body: ListView.builder(
         padding: EdgeInsets.fromLTRB(0, 0, 0, 30),
 
@@ -199,6 +201,7 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
                       style: TextStyle(
                         fontSize: 14,
                         color: Color(0xFF737373),
+                        fontFamily: Fonts.HSBold,
                       ),
                     ),
                   ),
@@ -229,8 +232,8 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
                               'Premiums Plan',
                               style: TextStyle(
                                 color: Color(0xFF135142),
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
+                                // fontSize: 20,
+                                fontFamily: Fonts.HSBold,
                               ),
                             ),
                             Text(
@@ -542,8 +545,8 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
         child: ListTile(
           leading: Image(
             image: getAssetImage(option["iconUrl"]),
-            height: 24,
-            width: 24,
+            height: HYSizeFit.setRpx(24),
+            width: HYSizeFit.setRpx(24),
           ),
           title: Text(option["title"]),
           trailing: Icon(Icons.arrow_forward_ios, size: 16),

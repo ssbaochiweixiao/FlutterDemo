@@ -5,6 +5,10 @@ import 'package:day01/setting_page_content.dart';
 import 'package:day01/Setting_lh_page_content.dart';
 import 'package:day01/test_home_content.dart';
 
+// 公共
+import 'utils/Extends.dart';
+import 'utils/common.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -12,6 +16,8 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    HYSizeFit.initialize(context);
+
     return MaterialApp(
       title: "my simple layout",
       theme: ThemeData(
@@ -44,9 +50,9 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _currentIndex = 0;
   final List<Widget> _pages = [
+    SettingsLHPage(),
     SettingsPage(),
     HomePageContent(),
-    SettingsLHPage(),
     SettingPageContent(),
   ];
 
