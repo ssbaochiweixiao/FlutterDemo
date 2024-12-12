@@ -280,13 +280,19 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
                       style: TextStyle(
                         fontSize: HYSizeFit.setRpx(28),
                         color: Color(0xFF737373),
-                        // backgroundColor: Colors.red
                       ),
                     ),
                   ),
                   // 遍历组内选项并构建ListTile展示
                   if (currentGroups[index]["options"].length > 1)
                     ListView.separated(
+
+                      separatorBuilder: (context, index) => Divider(
+                        height: 0.0,
+                        color: ColorUtil.stringColor("#F5F5F5"),
+                        indent: HYSizeFit.setRpx(63),
+                        endIndent: HYSizeFit.setRpx(63),
+                      ),
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
                       itemCount: currentGroups[index]["options"].length,
@@ -295,46 +301,54 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
                         bool isLast = optionIndex ==
                             currentGroups[index]["options"].length - 1;
 
-                        return Container(
-                          margin: EdgeInsets.symmetric(
-                              horizontal: HYSizeFit.setRpx(32)),
-                          height: HYSizeFit.setRpx(112),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.vertical(
-                              top: isFirst
-                                  ? Radius.circular(HYSizeFit.setRpx(24))
-                                  : Radius.zero,
-                              bottom: isLast
-                                  ? Radius.circular(HYSizeFit.setRpx(24))
-                                  : Radius.zero,
+                        return ClipRRect(
+                          borderRadius: BorderRadius.vertical(
+                            top: isFirst
+                                ? Radius.circular(HYSizeFit.setRpx(24))
+                                : Radius.zero,
+                            bottom: isLast
+                                ? Radius.circular(HYSizeFit.setRpx(24))
+                                : Radius.zero,
+                          ),
+
+                          child: Container(
+                            margin: EdgeInsets.symmetric(horizontal: HYSizeFit.setRpx(32)),
+                            // 可以根据需求调整这个高度
+                            height: HYSizeFit.setRpx(112),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.vertical(
+                                top: isFirst
+                                    ? Radius.circular(HYSizeFit.setRpx(24))
+                                    : Radius.zero,
+                                bottom: isLast
+                                    ? Radius.circular(HYSizeFit.setRpx(24))
+                                    : Radius.zero,
+                              ),
+                              color: Colors.white, // 这里设置背景色，可按需更改
                             ),
-                            child: ListTileCreateUI(context,
-                                currentGroups[index]["options"][optionIndex]),
+                            child: ListTileCreateUI(context, currentGroups[index]["options"][optionIndex]),
                           ),
                         );
+
                       },
-                      separatorBuilder: (context, index) => Divider(
-                        height: 0.0,
-                        color: ColorUtil.stringColor("#F5F5F5"),
-                        indent: HYSizeFit.setRpx(63),
-                        endIndent: HYSizeFit.setRpx(63),
-                      ),
+
                     )
                   else
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: HYSizeFit.setRpx(0)),
                       child: Container(
-                        margin: EdgeInsets.symmetric(
-                            horizontal: HYSizeFit.setRpx(32)),
+                        margin: EdgeInsets.symmetric(horizontal: HYSizeFit.setRpx(32)),
                         height: HYSizeFit.setRpx(112),
+                        decoration: BoxDecoration(
+                            color: Colors.white, // 设置背景颜色为红色
+                            borderRadius: BorderRadius.circular(HYSizeFit.setRpx(24))
+                        ),
                         child: ClipRRect(
-                          borderRadius:
-                              BorderRadius.circular(HYSizeFit.setRpx(24)),
-                          child: ListTileCreateUI(
-                              context, currentGroups[index]["options"][0]),
+                            borderRadius: BorderRadius.circular(HYSizeFit.setRpx(24)),
+                            child: ListTileCreateUI(context, currentGroups[index]["options"][0])
                         ),
                       ),
-                    ),
+                    )
                 ],
               );
             }
@@ -379,6 +393,9 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => AboutUs()));
     } else if (optionTitle == AppConstants.restoreText) {}
+    else if (optionTitle == AppConstants.contactUsText ){
+      _contactUsClicked();
+    }
 
     // 这里可以添加更多通用逻辑，比如显示一个简单的提示信息（实际项目中可能用SnackBar等更好的方式来显示提示）
     print('执行对应操作前的一些通用准备工作...');
@@ -464,6 +481,36 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
     return "$PLAY_APP_PREFIX$packageName&referrer=utm_source%3Dappcross%26utm_medium%3Drecommend%26utm_campaign%3D$utmCampaign";
   }
 
+  // Future<void>和void的区别：处理异步任务，这意味着函数内部的操作可能不会立即完成，而是在未来的某个时间点完成
+  Future<void> _contactUsClicked() async {
+    // EventLogger.logEvent(click_ContactUs);
+    try {
+      // myPrint('Contact Us clicked');
+      String appVersion = await DeviceInfoUtil.getAppVersion();
+      String deviceModel = await DeviceInfoUtil.getDeviceModel();
+      String systemVersion = await DeviceInfoUtil.getSystemVersion();
+
+      final String subject = '${Platform.isIOS ? 'iOS' : 'Android'} Coin Identifier Feedback';
+      // myPrint('准备构建邮件内容');
+      String body =
+          'Hi,\nProblem Description:\n\n\n\n\n===============\nApp Version: $appVersion, Device: $deviceModel, OS Version: $systemVersion';
+      // 对 body 进行 URL 编码
+      String encodedBody = Uri.encodeComponent(body);
+      const String recipient = FeedbackEmail;
+      String mailtoUrl = 'mailto:$recipient?subject=$subject&body=$encodedBody';
+
+      await launchUrl(Uri.parse(mailtoUrl));
+    } catch (e) {
+      Fluttertoast.showToast(
+        msg:'Please log in to your email and give us your feedback.',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 3,
+      );
+      // myPrint('处理联系我们点击事件时出错: $e');
+    }
+  }
+
   Future<String> _getCacheSize() async {
     try {
       Directory cacheDir = await getTemporaryDirectory();
@@ -520,7 +567,7 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Material(
-                    color: Colors.white,
+                    color: Colors.transparent,
                     child: ListTile(
                       contentPadding: EdgeInsets.zero,
                       title: Row(
@@ -552,7 +599,6 @@ class _SettingsLHPageState extends State<SettingsLHPage> {
                             fontFamily: Fonts.HSRegular,
                             fontSize: HYSizeFit.setRpx(28),
                             color: ColorUtil.stringColor("#D4D4D4"),
-                            // backgroundColor: Colors.red,
                           ),
                         ),
                       )

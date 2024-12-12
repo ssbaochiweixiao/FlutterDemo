@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
 
-
-
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 
 
 isIOS() {
@@ -95,5 +95,61 @@ class ColorUtil {
     int blue = color.blue;
     // 通过fromRGBO返回带透明度和RGB值的颜色
     return Color.fromRGBO(red, green, blue, alpha);
+  }
+}
+class DeviceInfoUtil {
+  /// 获取应用版本号
+  static Future<String> getAppVersion() async {
+    final PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    return packageInfo.version;
+  }
+
+  static Future<String> getAppShortVersion() async {
+    final PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    return packageInfo.buildNumber;
+  }
+
+  /// 获取iOS 的 bundleid
+  static Future<String> getBundleId() async {
+    final PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    return packageInfo.packageName;
+  }
+
+  /// 获取系统版本
+  static Future<String> getSystemVersion() async {
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    if (Platform.isIOS) {
+      IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+      return iosInfo.systemVersion;
+    } else if (Platform.isAndroid) {
+      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+      return androidInfo.version.release;
+    }
+    return "unKnown";
+  }
+
+  /// 获取设备类型
+  static Future<String> getDeviceModel() async {
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    if (Platform.isIOS) {
+      IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+      return iosInfo.model;
+    } else if (Platform.isAndroid) {
+      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+      return androidInfo.model;
+    }
+    return "unKnown";
+  }
+
+  static Future<void> getBuildVersion() async {
+    try {
+      late String currentAppVersion;
+      late String currentBundleID;
+      String currentAppBuildVersion = '';
+
+      String appVersion = await DeviceInfoUtil.getAppShortVersion();
+      currentAppBuildVersion = appVersion;
+      // myPrint('---- currentAppBuildVersion:$currentAppBuildVersion');
+    } catch (e) {}
   }
 }

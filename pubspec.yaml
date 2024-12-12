@@ -60,18 +60,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^4.0.0
-#  sqflite: ^2.4.1  # 这里的版本号可以根据实际需求进行调整，建议使用最新稳定版本
-#  path_provider: ^2.1.5  # 根据实际最新版本进行调整
-#  webview_flutter: ^4.10.0
-#
-#  package_info_plus: ^8.1.0
-#  device_info_plus: ^11.1.0 //
-#
-#  url_launcher: ^6.3.1
-#  share_plus: ^10.1.1
-#  shared_preferences: ^2.3.2
-#
-#  fluttertoast: ^8.2.8
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

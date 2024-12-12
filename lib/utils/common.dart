@@ -7,3 +7,8 @@ class Fonts {
   static const String HSBold = 'HarmonyOS_Sans_Bold';
   static const String HSBlack = 'HarmonyOS_Sans_Black';
 }
+
+// coin app 配置信息
+const String FeedbackEmail = "aicoinidentifier@outlook.com";
+
+
